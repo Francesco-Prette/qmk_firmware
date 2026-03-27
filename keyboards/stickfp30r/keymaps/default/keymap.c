@@ -67,8 +67,8 @@ static float subpixel_x = 0.0f;
 static float subpixel_y = 0.0f;
 
 #define CALIBRATION_TIME_MS 3000
-#define JOYSTICK_DEADZONE_PCT 0.005f
-#define JOYSTICK_MIN_SPEED 0.35f
+#define JOYSTICK_DEADZONE_PCT 0.01f
+#define JOYSTICK_MIN_SPEED 0.05f
 #define JOYSTICK_STAGE1_END 0.35f
 #define JOYSTICK_STAGE2_END 0.75f
 #define JOYSTICK_STAGE1_MAX_FACTOR 0.30f
@@ -76,6 +76,7 @@ static float subpixel_y = 0.0f;
 #define JOYSTICK_STAGE3_BASE_FACTOR 0.75f
 #define JOYSTICK_STAGE3_ADD_FACTOR 0.25f
 #define JOYSTICK_SPEED_MULTIPLIER 1.00f
+#define JOYSTICK_MAX_VALUE 15.0f
 
 /* ---------------------------
    Load calibration
@@ -223,7 +224,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         speed_factor = JOYSTICK_STAGE3_BASE_FACTOR + (JOYSTICK_STAGE3_ADD_FACTOR * t * t * t);
     }
 
-    float speed = speed_factor * ANALOG_JOYSTICK_SPEED_MAX * JOYSTICK_SPEED_MULTIPLIER;
+    float speed = speed_factor * JOYSTICK_MAX_VALUE * JOYSTICK_SPEED_MULTIPLIER;
     if (speed < JOYSTICK_MIN_SPEED && raw_mag > 0.01f) {
         speed = JOYSTICK_MIN_SPEED;
     }
