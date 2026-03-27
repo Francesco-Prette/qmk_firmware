@@ -1,3 +1,5 @@
+#pragma once
+
 #ifdef OLED_ENABLE
     #define OLED_DIPLAY_128X64
 #endif
